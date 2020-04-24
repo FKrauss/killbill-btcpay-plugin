@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Killbill::Bitpay::PaymentPlugin do
   before(:each) do
     Dir.mktmpdir do |dir|
-      file = File.new(File.join(dir, 'bitpay.yml'), "w+")
+      file = File.new(File.join(dir, 'btcpay.yml'), "w+")
       file.write(<<-eos)
-:bitpay:
+:btcpay:
   :test: true
 # As defined by spec_helper.rb
 :database:
@@ -14,11 +14,11 @@ describe Killbill::Bitpay::PaymentPlugin do
       eos
       file.close
 
-      @plugin              = Killbill::Bitpay::PaymentPlugin.new
+      @plugin              = Killbill::Btcpay::PaymentPlugin.new
       @plugin.logger       = Logger.new(STDOUT)
       @plugin.logger.level = Logger::INFO
       @plugin.conf_dir     = File.dirname(file)
-      @plugin.kb_apis      = Killbill::Plugin::KillbillApi.new('bitpay', {})
+      @plugin.kb_apis      = Killbill::Plugin::KillbillApi.new('btcpay', {})
 
       # Start the plugin here - since the config file will be deleted
       @plugin.start_plugin
@@ -41,7 +41,8 @@ describe Killbill::Bitpay::PaymentPlugin do
 
     form.kb_account_id.should == kb_account_id
     form.form_method.should == 'GET'
-    form.form_url.should == 'https://bitpay.com/invoice'
+    ## TODO -> make the form url dynamic
+    form.form_url.should == 'https://yourbtcpayserver.com/invoice'
 
     form_fields = @plugin.properties_to_hash(form.form_fields)
     form_fields.has_key?(:id).should be_true

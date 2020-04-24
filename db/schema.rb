@@ -1,9 +1,9 @@
 require 'active_record'
 
 ActiveRecord::Schema.define(:version => 20140410153635) do
-  create_table "bitpay_payment_methods", :force => true do |t|
+  create_table "btcpay_payment_methods", :force => true do |t|
     t.string   "kb_payment_method_id"      # NULL before Kill Bill knows about it
-    t.string   "token"                     # bitpay id
+    t.string   "token"                     # btcpay id
     t.string   "cc_first_name"
     t.string   "cc_last_name"
     t.string   "cc_type"
@@ -29,17 +29,17 @@ ActiveRecord::Schema.define(:version => 20140410153635) do
     t.string   "kb_tenant_id"
   end
 
-  add_index(:bitpay_payment_methods, :kb_account_id)
-  add_index(:bitpay_payment_methods, :kb_payment_method_id)
+  add_index(:btcpay_payment_methods, :kb_account_id)
+  add_index(:btcpay_payment_methods, :kb_payment_method_id)
 
-  create_table "bitpay_transactions", :force => true do |t|
-    t.integer  "bitpay_response_id",  :null => false
+  create_table "btcpay_transactions", :force => true do |t|
+    t.integer  "btcpay_response_id",  :null => false
     t.string   "api_call",                       :null => false
     t.string   "kb_payment_id",                  :null => false
     t.string   "kb_payment_transaction_id",      :null => false
     t.string   "transaction_type",               :null => false
     t.string   "payment_processor_account_id"
-    t.string   "txn_id"                          # bitpay transaction id
+    t.string   "txn_id"                          # btcpay transaction id
     # Both null for void
     t.integer  "amount_in_cents"
     t.string   "currency"
@@ -49,9 +49,9 @@ ActiveRecord::Schema.define(:version => 20140410153635) do
     t.string   "kb_tenant_id",                   :null => false
   end
 
-  add_index(:bitpay_transactions, :kb_payment_id)
+  add_index(:btcpay_transactions, :kb_payment_id)
 
-  create_table "bitpay_responses", :force => true do |t|
+  create_table "btcpay_responses", :force => true do |t|
     t.string   "api_call",          :null => false
     t.string   "kb_payment_id"
     t.string   "kb_payment_transaction_id"

@@ -2,16 +2,16 @@ require 'spec_helper'
 
 ActiveMerchant::Billing::Base.mode = :test
 
-describe Killbill::Bitpay::PaymentPlugin do
+describe Killbill::Btcpay::PaymentPlugin do
 
   include ::Killbill::Plugin::ActiveMerchant::RSpec
 
   before(:each) do
-    @plugin = Killbill::Bitpay::PaymentPlugin.new
+    @plugin = Killbill::Btcpay::PaymentPlugin.new
 
     @account_api    = ::Killbill::Plugin::ActiveMerchant::RSpec::FakeJavaUserAccountApi.new
     svcs            = {:account_user_api => @account_api}
-    @plugin.kb_apis = Killbill::Plugin::KillbillApi.new('bitpay', svcs)
+    @plugin.kb_apis = Killbill::Plugin::KillbillApi.new('btcpay', svcs)
 
     @plugin.logger       = Logger.new(STDOUT)
     @plugin.logger.level = Logger::INFO
@@ -36,6 +36,7 @@ describe Killbill::Bitpay::PaymentPlugin do
 
     form.kb_account_id.should == kb_account_id
     form.form_method.should == 'GET'
+    ## TODO add the dynamic Btcpay domain
     form.form_url.should == 'https://bitpay.com/invoice'
 
     form_fields = @plugin.properties_to_hash(form.form_fields)
@@ -46,6 +47,7 @@ describe Killbill::Bitpay::PaymentPlugin do
     notification    = {
         "id"             => "#{form_fields[:id]}",
         "orderID"        => "1234",
+## TODO add the dynamic Btcpay domain
         "url"            => "https://bitpay.com/invoice/#{form_fields[:id]}",
         "status"         => "new",
         "btcPrice"       => "0.0001",

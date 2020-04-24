@@ -1,10 +1,10 @@
 module Killbill #:nodoc:
-  module Bitpay #:nodoc:
-    class BitpayPaymentMethod < ::Killbill::Plugin::ActiveMerchant::ActiveRecord::PaymentMethod
+  module Btcpay #:nodoc:
+    class BtcpayPaymentMethod < ::Killbill::Plugin::ActiveMerchant::ActiveRecord::PaymentMethod
 
-      self.table_name = 'bitpay_payment_methods'
+      self.table_name = 'btcpay_payment_methods'
 
-      def self.from_response(kb_account_id, kb_payment_method_id, kb_tenant_id, cc_or_token, response, options, extra_params = {}, model = ::Killbill::Bitpay::BitpayPaymentMethod)
+      def self.from_response(kb_account_id, kb_payment_method_id, kb_tenant_id, cc_or_token, response, options, extra_params = {}, model = ::Killbill::Btcpay::BtcpayPaymentMethod)
         super(kb_account_id,
               kb_payment_method_id,
               kb_tenant_id,

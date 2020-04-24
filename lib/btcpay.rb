@@ -16,10 +16,10 @@ require 'yaml'
 require 'killbill'
 require 'killbill/helpers/active_merchant'
 
-require 'bitpay/api'
-require 'bitpay/private_api'
+require 'btcpay/api'
+require 'btcpay/private_api'
 
-require 'bitpay/models/payment_method'
-require 'bitpay/models/response'
-require 'bitpay/models/transaction'
+require 'btcpay/models/payment_method'
+require 'btcpay/models/response'
+require 'btcpay/models/transaction'
 

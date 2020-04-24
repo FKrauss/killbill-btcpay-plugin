@@ -1,5 +1,5 @@
 require 'bundler'
-require 'bitpay'
+require 'btcpay'
 require 'killbill/helpers/active_merchant/killbill_spec_helper'
 
 require 'logger'

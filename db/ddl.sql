@@ -1,4 +1,4 @@
-CREATE TABLE `bitpay_payment_methods` (
+CREATE TABLE `btcpay_payment_methods` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kb_payment_method_id` varchar(255) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
@@ -26,13 +26,13 @@ CREATE TABLE `bitpay_payment_methods` (
   `kb_account_id` varchar(255) DEFAULT NULL,
   `kb_tenant_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_bitpay_payment_methods_on_kb_account_id` (`kb_account_id`),
-  KEY `index_bitpay_payment_methods_on_kb_payment_method_id` (`kb_payment_method_id`)
+  KEY `index_btcpay_payment_methods_on_kb_account_id` (`kb_account_id`),
+  KEY `index_btcpay_payment_methods_on_kb_payment_method_id` (`kb_payment_method_id`)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
-CREATE TABLE `bitpay_transactions` (
+CREATE TABLE `btcpay_transactions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bitpay_response_id` int(11) NOT NULL,
+  `btcpay_response_id` int(11) NOT NULL,
   `api_call` varchar(255) NOT NULL,
   `kb_payment_id` varchar(255) NOT NULL,
   `kb_payment_transaction_id` varchar(255) NOT NULL,
@@ -46,10 +46,10 @@ CREATE TABLE `bitpay_transactions` (
   `kb_account_id` varchar(255) NOT NULL,
   `kb_tenant_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_bitpay_transactions_on_kb_payment_id` (`kb_payment_id`)
+  KEY `index_btcpay_transactions_on_kb_payment_id` (`kb_payment_id`)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
-CREATE TABLE `bitpay_responses` (
+CREATE TABLE `btcpay_responses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `api_call` varchar(255) NOT NULL,
   `kb_payment_id` varchar(255) DEFAULT NULL,

@@ -23,12 +23,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.kill-bill.billing.plugin.ruby</groupId>
-    <artifactId>bitpay-plugin</artifactId>
+    <artifactId>btcpay-plugin</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1</version>
-    <name>bitpay-plugin</name>
-    <url>http://github.com/killbill/killbill-bitpay-plugin</url>
-    <description>Plugin for accessing Bitpay as a payment gateway</description>
+    <name>btcpay-plugin</name>
+    <url>http://github.com/killbill/killbill-btcpay-plugin</url>
+    <description>Plugin for accessing BTCpay Server as a payment gateway</description>
     <licenses>
         <license>
             <name>Apache License 2.0</name>
@@ -37,8 +37,8 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git://github.com/killbill/killbill-bitpay-plugin.git</connection>
-        <url>https://github.com/killbill/killbill-bitpay-plugin/</url>
-        <developerConnection>scm:git:git@github.com:killbill/killbill-bitpay-plugin.git</developerConnection>
+        <connection>scm:git:git://github.com/killbill/killbill-btcpay-plugin.git</connection>
+        <url>https://github.com/killbill/killbill-btcpay-plugin/</url>
+        <developerConnection>scm:git:git@github.com:killbill/killbill-btcpay-plugin.git</developerConnection>
     </scm>
 </project>

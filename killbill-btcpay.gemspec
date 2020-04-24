@@ -1,10 +1,10 @@
 version = File.read(File.expand_path('../VERSION', __FILE__)).strip
 
 Gem::Specification.new do |s|
-  s.name        = 'killbill-bitpay'
+  s.name        = 'killbill-btcpay'
   s.version     = version
-  s.summary     = 'Plugin to use Bitpay as a gateway.'
-  s.description = 'Kill Bill payment plugin for Bitpay.'
+  s.summary     = 'Plugin to use BTCpay Server as a gateway.'
+  s.description = 'Kill Bill payment plugin for BTCpay Server.'
 
   s.required_ruby_version = '>= 1.9.3'
 

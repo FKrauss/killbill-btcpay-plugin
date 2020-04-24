@@ -1,5 +1,5 @@
 module Killbill #:nodoc:
-  module Bitpay #:nodoc:
+  module Btcpay #:nodoc:
     class PaymentPlugin < ::Killbill::Plugin::ActiveMerchant::PaymentPlugin
 
       def initialize
@@ -8,10 +8,10 @@ module Killbill #:nodoc:
         end
 
         super(gateway_builder,
-              :bitpay,
-              ::Killbill::Bitpay::BitpayPaymentMethod,
-              ::Killbill::Bitpay::BitpayTransaction,
-              ::Killbill::Bitpay::BitpayResponse)
+              :btcpay,
+              ::Killbill::Btcpay::BtcpayPaymentMethod,
+              ::Killbill::Btcpay::BtcpayTransaction,
+              ::Killbill::Btcpay::BtcpayResponse)
       end
 
       def authorize_payment(kb_account_id, kb_payment_id, kb_payment_transaction_id, kb_payment_method_id, amount, currency, properties, context)
@@ -38,7 +38,7 @@ module Killbill #:nodoc:
         response = @response_model.where("transaction_type = 'PURCHASE' AND kb_tenant_id = '#{kb_tenant_id}' AND authorization = '#{payment_transaction_external_key}'")
                                   .order(:created_at)[0]
 
-        transaction = response.create_bitpay_transaction(:kb_account_id                => kb_account_id,
+        transaction = response.create_btcpay_transaction(:kb_account_id                => kb_account_id,
                                                          :kb_tenant_id                 => kb_tenant_id,
                                                          :amount_in_cents              => amount.nil? ? nil : to_cents(amount, currency),
                                                          :currency                     => currency,
@@ -48,7 +48,7 @@ module Killbill #:nodoc:
                                                          :transaction_type             => response.transaction_type,
                                                          :payment_processor_account_id => response.payment_processor_account_id,
                                                          :txn_id                       => response.txn_id,
-                                                         :bitpay_response_id           => response.id)
+                                                         :btcpay_response_id           => response.id)
 
         response.to_transaction_info_plugin(transaction)
       end
@@ -146,9 +146,9 @@ module Killbill #:nodoc:
         options = {}
         properties = merge_properties(properties, options)
 
-        # Add the BitPay API key to generate the invoice id
+        # Add the btcpay API key to generate the invoice id
         options = {
-            :account_id => config[:bitpay][:api_key],
+            :account_id => config[:btcpay][:api_key],
             # Overload the order_id (passed as posData) (TODO fix OffsitePayments implementation)
             :order_id => "#{kb_account_id};#{context.tenant_id}"
         }
@@ -158,9 +158,9 @@ module Killbill #:nodoc:
       end
 
       def process_notification(notification, properties, context)
-        # Add the BitPay API key to retrieve the invoice
+        # Add the btcpay API key to retrieve the invoice
         options = {
-            :credential1 => config[:bitpay][:api_key]
+            :credential1 => config[:btcpay][:api_key]
         }
         properties = merge_properties(properties, options)
 
@@ -174,7 +174,7 @@ module Killbill #:nodoc:
 
           if is_success.nil?
             # Either the invoice was never paid (expired) or hasn't been confirmed yet
-            logger.info "Ignoring BitPay IPN #{service.raw}"
+            logger.info "Ignoring btcpay IPN #{service.raw}"
           else
             # See above (parsed from posData)
             kb_account_id, kb_tenant_id = service.item_id.nil? ? nil : service.item_id.split(';')

@@ -28,11 +28,11 @@ rake release
 echo 'Building artifact'
 rake killbill:package
 
-ARTIFACT="$PWD/pkg/killbill-bitpay-$VERSION.tar.gz"
+ARTIFACT="$PWD/pkg/killbill-btcpay-$VERSION.tar.gz"
 echo "Pushing $ARTIFACT to Maven Central"
 mvn gpg:sign-and-deploy-file \
     -DgroupId=org.kill-bill.billing.plugin.ruby \
-    -DartifactId=bitpay-plugin \
+    -DartifactId=btcpay-plugin \
     -Dversion=$VERSION \
     -Dpackaging=tar.gz \
     -DrepositoryId=ossrh-releases \

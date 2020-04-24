@@ -1,4 +1,4 @@
-require 'bitpay'
-require 'bitpay/application'
+require 'btcpay'
+require 'btcpay/application'
 
 run Sinatra::Application

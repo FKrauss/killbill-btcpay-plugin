@@ -18,12 +18,12 @@ end
 
 helpers do
   def plugin(session = {})
-    ::Killbill::Bitpay::PrivatePaymentPlugin.new(session)
+    ::Killbill::Btcpay::PrivatePaymentPlugin.new(session)
   end
 end
 
-# curl -v http://127.0.0.1:9292/plugins/killbill-bitpay/form
-get '/plugins/killbill-bitpay/form', :provides => 'html' do
+# curl -v http://127.0.0.1:9292/plugins/killbill-btcpay/form
+get '/plugins/killbill-btcpay/form', :provides => 'html' do
   order_id   = request.GET['order_id']
   account_id = request.GET['account_id']
   options    = {
@@ -43,36 +43,36 @@ get '/plugins/killbill-bitpay/form', :provides => 'html' do
       :forward_url      => request.GET['forward_url']
   }
 
-  @form = plugin(session).payment_form_for(order_id, account_id, :bitpay, options) do |service|
+  @form = plugin(session).payment_form_for(order_id, account_id, :btcpay, options) do |service|
     # Add your custom hidden tags here, e.g.
-    #service.token = config[:bitpay][:token]
+    #service.token = config[:btcpay][:token]
     submit_tag 'Submit'
   end
 
   erb :form
 end
 
-# curl -v http://127.0.0.1:9292/plugins/killbill-bitpay/1.0/pms/1
-get '/plugins/killbill-bitpay/1.0/pms/:id', :provides => 'json' do
-  if pm = ::Killbill::Bitpay::BitpayPaymentMethod.find_by_id(params[:id].to_i)
+# curl -v http://127.0.0.1:9292/plugins/killbill-btcpay/1.0/pms/1
+get '/plugins/killbill-btcpay/1.0/pms/:id', :provides => 'json' do
+  if pm = ::Killbill::Btcpay::BtcpayPaymentMethod.find_by_id(params[:id].to_i)
     pm.to_json
   else
     status 404
   end
 end
 
-# curl -v http://127.0.0.1:9292/plugins/killbill-bitpay/1.0/transactions/1
-get '/plugins/killbill-bitpay/1.0/transactions/:id', :provides => 'json' do
-  if transaction = ::Killbill::Bitpay::BitpayTransaction.find_by_id(params[:id].to_i)
+# curl -v http://127.0.0.1:9292/plugins/killbill-btcpay/1.0/transactions/1
+get '/plugins/killbill-btcpay/1.0/transactions/:id', :provides => 'json' do
+  if transaction = ::Killbill::Btcpay::BtcpayTransaction.find_by_id(params[:id].to_i)
     transaction.to_json
   else
     status 404
   end
 end
 
-# curl -v http://127.0.0.1:9292/plugins/killbill-bitpay/1.0/responses/1
-get '/plugins/killbill-bitpay/1.0/responses/:id', :provides => 'json' do
-  if transaction = ::Killbill::Bitpay::BitpayResponse.find_by_id(params[:id].to_i)
+# curl -v http://127.0.0.1:9292/plugins/killbill-btcpay/1.0/responses/1
+get '/plugins/killbill-btcpay/1.0/responses/:id', :provides => 'json' do
+  if transaction = ::Killbill::Btcpay::BtcpayResponse.find_by_id(params[:id].to_i)
     transaction.to_json
   else
     status 404

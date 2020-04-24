@@ -1,11 +1,11 @@
 module Killbill #:nodoc:
-  module Bitpay #:nodoc:
+  module Btcpay #:nodoc:
     class PrivatePaymentPlugin < ::Killbill::Plugin::ActiveMerchant::PrivatePaymentPlugin
       def initialize(session = {})
         super(:bitpay,
-              ::Killbill::Bitpay::BitpayPaymentMethod,
-              ::Killbill::Bitpay::BitpayTransaction,
-              ::Killbill::Bitpay::BitpayResponse,
+              ::Killbill::Btcpay::BtcpayPaymentMethod,
+              ::Killbill::Btcpay::BtcpayTransaction,
+              ::Killbill::Btcpay::BtcpayResponse,
               session)
       end
     end
